@@ -50,7 +50,7 @@ configfile.files = screen.config
 INSTALLS += configfile
 
 CONFIG += link_pkgconfig
-PKGCONFIG += libdrm cairo libcjson
+PKGCONFIG += libdrm cairo libcjson lua
 
 #CONFIG += LOCALPLANES
 
