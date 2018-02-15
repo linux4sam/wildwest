@@ -29,6 +29,7 @@ public:
 protected:
 
     virtual void mousePressEvent(QMouseEvent *event) override;
+    virtual void keyPressEvent(QKeyEvent* k) override;
     virtual void paintEvent (QPaintEvent * event) override;
     virtual bool event(QEvent *event) override;
 };

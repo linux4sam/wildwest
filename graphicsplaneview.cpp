@@ -3,12 +3,11 @@
  * Joshua Henderson <joshua.henderson@microchip.com>
  */
 #include "graphicsplaneview.h"
+#include <QApplication>
 #include <QPaintEvent>
 #include <QDebug>
 #include <QGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
-
-// https://stackoverflow.com/questions/28760436/drawing-by-windows-gdi-inside-of-qt
 
 GraphicsPlaneView::GraphicsPlaneView(QGraphicsScene *scene)
     : QGraphicsView(scene)
@@ -48,6 +47,13 @@ void GraphicsPlaneView::mousePressEvent(QMouseEvent *event)
     QGraphicsView::mousePressEvent(event);
     if (!event->isAccepted())
         emit clicked();
+}
+
+void GraphicsPlaneView::keyPressEvent(QKeyEvent* k)
+{
+    if(k->key() == 48){
+        QApplication::instance()->exit();
+    }
 }
 
 GraphicsPlaneView::~GraphicsPlaneView()
