@@ -40,14 +40,17 @@ HEADERS  += \
     graphicsspriteitem.h
 
 DISTFILES += \
-    screen.config
+    wildwest.screen
 
-target.path = /root
-INSTALLS += target
-
-configfile.path = /root
-configfile.files = screen.config
-INSTALLS += configfile
+target.path = /opt/wildwest
+target.files = wildwest
+extra.path = /opt/wildwest
+extra.files = resources/wildwest.sh wildwest.screen
+configfile.path = /opt/ApplicationLauncher/applications/xml
+configfile.files = resources/10-wildwest.xml
+imagefile.path = /opt/ApplicationLauncher/applications/resources
+imagefile.files = resources/wildwest.png
+INSTALLS += target configfile imagefile extra
 
 CONFIG += link_pkgconfig
 PKGCONFIG += libdrm cairo libcjson lua
@@ -56,8 +59,8 @@ PKGCONFIG += libdrm cairo libcjson lua
 
 LOCALPLANES {
     PKGCONFIG += tslib
-    INCLUDEPATH += /home/jhenderson/planes/include/
-    LIBS += -L/home/jhenderson/planes/src/.libs -lplanes
+    INCLUDEPATH += $(HOME)/planes/include/
+    LIBS += -L$(HOME)/planes/src/.libs -lplanes
 } else {
     PKGCONFIG += libplanes
 }

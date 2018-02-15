@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     PlaneManager planes;
-    if (!planes.load("screen.config"))
+    if (!planes.load("wildwest.screen"))
     {
         QMessageBox::critical(0, "Failed to Setup Planes",
                               "This demo requires a version of Qt that provides access to the DRI file descriptor,"
