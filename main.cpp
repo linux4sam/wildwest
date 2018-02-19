@@ -99,6 +99,13 @@ int main(int argc, char *argv[])
 
     QRect screen = QApplication::desktop()->screenGeometry();
 
+    if (screen.width() != 800 || screen.height() != 480)
+    {
+        QMessageBox::critical(0, "Unsupported Screen Resolution",
+                              "This demo requires a screen resolution of 800x480 to run properly");
+        return -1;
+    }
+
     QGraphicsScene scene;
 
     /*
