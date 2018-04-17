@@ -5,13 +5,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 #include "graphicsplaneitem.h"
+#include <planes/plane.h>
 #include <QPainter>
 #include <QDebug>
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <QStyleOptionGraphicsItem>
-
-// https://stackoverflow.com/questions/28760436/drawing-by-windows-gdi-inside-of-qt
 
 GraphicsPlaneItem::GraphicsPlaneItem(struct plane_data* plane, const QRectF& bounding)
     : m_bounding(bounding),
@@ -28,16 +27,16 @@ GraphicsPlaneItem::GraphicsPlaneItem(struct plane_data* plane, const QRectF& bou
     setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 
     /*
-     * This is how we get ItemPositionChange, ItemPositionHasChanged, ItemMatrixChange,
-     * ItemTransformChange, ItemTransformHasChanged, ItemRotationChange, ItemRotationHasChanged,
-     * ItemScaleChange, ItemScaleHasChanged, ItemTransformOriginPointChange, and
-     * ItemTransformOriginPointHasChanged to itemChange().
+     * QGraphicsItem::ItemSendsGeometryChanges is how we get ItemPositionChange,
+     * ItemPositionHasChanged, ItemMatrixChange, ItemTransformChange, ItemTransformHasChanged,
+     * ItemRotationChange, ItemRotationHasChanged, ItemScaleChange, ItemScaleHasChanged,
+     * ItemTransformOriginPointChange, and ItemTransformOriginPointHasChanged to itemChange().
      *
-     * For performance reasons, these notifications are disabled by default. You must enable this
-     * flag to receive notifications for position and transform changes.
+     * QGraphicsItem::ItemHasNoContents is the magic that prevents paint calls from the view/scene.
      */
-    setFlags(QGraphicsItem::ItemSendsGeometryChanges | QGraphicsItem::ItemClipsToShape);
-    //setFlags(QGraphicsItem::ItemSendsGeometryChanges | QGraphicsItem::ItemHasNoContents);
+    setFlags(QGraphicsItem::ItemSendsGeometryChanges |
+             QGraphicsItem::ItemClipsToShape |
+             QGraphicsItem::ItemHasNoContents);
 
     moveEvent(pos());
 }
@@ -49,10 +48,22 @@ QVariant GraphicsPlaneItem::itemChange(GraphicsItemChange change, const QVariant
     if (change == GraphicsItemChange::ItemPositionChange)
     {
         moveEvent(value.toPoint());
+        return value;
     }
     else if (change == GraphicsItemChange::ItemPositionHasChanged)
     {
         moveEvent(value.toPoint());
+        return value;
+    }
+    else if (change == GraphicsItemChange::ItemScaleChange)
+    {
+        // TODO: validate scale
+    }
+    else if (change == GraphicsItemChange::ItemScaleHasChanged)
+    {
+        qDebug() << "scale " << value.toFloat();
+        plane_set_scale(m_plane, value.toFloat());
+        plane_apply(m_plane);
     }
 
     return QGraphicsItem::itemChange(change, value);

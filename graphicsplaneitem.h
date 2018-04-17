@@ -7,15 +7,18 @@
 #ifndef GRAPHICSPLANEITEM_H
 #define GRAPHICSPLANEITEM_H
 
-#include <QGraphicsItem>
+#include <QGraphicsObject>
+#include <QDebug>
 #include "planemanager.h"
+#include <QGraphicsView>
 
 /**
  * @brief The GraphicsPlaneItem class
  *
- *
+ * A QGraphicsObject that translates functions away from native Qt operations into hardware
+ * planes functions using libplanes.
  */
-class GraphicsPlaneItem : public QObject, public QGraphicsItem
+class GraphicsPlaneItem : public QGraphicsObject
 {
 public:
 
@@ -31,6 +34,17 @@ public:
         Q_UNUSED(painter);
         Q_UNUSED(option);
         Q_UNUSED(widget);
+    }
+
+    /**
+     * @brief update
+     * Custom version of Qt required to make this virtual.
+     */
+    virtual void update(const QRectF &rect = QRectF())
+    {
+        qDebug() << "GraphicsPlaneItem::update aborted";
+
+        Q_UNUSED(rect);
     }
 
     virtual ~GraphicsPlaneItem()
