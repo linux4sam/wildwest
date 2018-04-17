@@ -42,12 +42,6 @@ GraphicsPlaneItem::GraphicsPlaneItem(struct plane_data* plane, const QRectF& bou
     moveEvent(pos());
 }
 
-bool GraphicsPlaneItem::sceneEvent(QEvent *event)
-{
-    qDebug() << "GraphicsPlaneItem::sceneEvent: " << event->type();
-    return QGraphicsItem::sceneEvent(event);
-}
-
 QVariant GraphicsPlaneItem::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     qDebug() << "GraphicsPlaneItem::itemChange " << change;

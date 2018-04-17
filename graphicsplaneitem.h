@@ -52,7 +52,6 @@ protected:
      */
     void draw(struct plane_data* plane, QImage image, bool horizontal = false, bool vertical = false, bool scale = true);
 
-    virtual bool sceneEvent(QEvent *event) override;
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
     QRectF m_bounding;
@@ -60,4 +59,3 @@ protected:
 };
 
 #endif // GRAPHICSPLANEITEM_H
-
