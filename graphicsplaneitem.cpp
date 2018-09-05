@@ -35,8 +35,7 @@ GraphicsPlaneItem::GraphicsPlaneItem(struct plane_data* plane, const QRectF& bou
      * QGraphicsItem::ItemHasNoContents is the magic that prevents paint calls from the view/scene.
      */
     setFlags(QGraphicsItem::ItemSendsGeometryChanges |
-             QGraphicsItem::ItemClipsToShape |
-             QGraphicsItem::ItemHasNoContents);
+             QGraphicsItem::ItemClipsToShape);
 
     moveEvent(pos());
 }
