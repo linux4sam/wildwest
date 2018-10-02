@@ -53,9 +53,6 @@ imagefile.files = resources/wildwest.png
 INSTALLS += target configfile imagefile extra
 
 CONFIG += link_pkgconfig
-PKGCONFIG += libdrm cairo libcjson lua
-
-#CONFIG += LOCALPLANES
 
 LOCALPLANES {
     PKGCONFIG += tslib
@@ -64,6 +61,10 @@ LOCALPLANES {
 } else {
     PKGCONFIG += libplanes
 }
+
+PKGCONFIG += libdrm cairo libcjson lua
+
+#CONFIG += LOCALPLANES
 
 RESOURCES += \
     media.qrc
