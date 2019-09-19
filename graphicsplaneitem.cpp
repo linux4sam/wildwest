@@ -83,7 +83,7 @@ void GraphicsPlaneItem::draw(struct plane_data* plane, QImage image, bool horizo
 
     plane_fb_map(plane);
 
-    QImage fb(static_cast<uchar*>(plane->buf),
+    QImage fb(static_cast<uchar*>(plane->bufs[0]),
               plane_width(plane), plane_height(plane),
               QImage::Format_ARGB32_Premultiplied);
 
