@@ -43,7 +43,7 @@ DISTFILES += \
     wildwest.screen
 
 target.path = /opt/wildwest
-target.files = wildwest
+target.files = $$top_builddir/wildwest
 extra.path = /opt/wildwest
 extra.files = resources/wildwest.sh wildwest.screen
 configfile.path = /opt/ApplicationLauncher/applications/xml
